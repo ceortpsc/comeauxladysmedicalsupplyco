@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: comeaux-ladys-medical-supply-staging
+    runtime: node
+    plan: free
+    region: ohio
+    branch: staging
+    autoDeploy: true
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_ENV
+        value: staging
+      - key: APP_VERSION
+        value: 0.1.0
+      - key: NODE_VERSION
+        value: 24.21.0

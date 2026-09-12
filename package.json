@@ -1,0 +1,14 @@
+{
+  "name": "comeaux-ladys-medical-supply-platform",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "engines": {"node": ">=24 <25"},
+  "scripts": {
+    "dev": "npm --workspace @comeaux/platform run dev",
+    "build": "npm --workspace @comeaux/platform run build",
+    "start": "npm --workspace @comeaux/platform run start",
+    "typecheck": "npm --workspace @comeaux/platform run typecheck",
+    "verify": "npm run typecheck && npm run build"
+  }
+}

@@ -1,0 +1,16 @@
+name: ComeauxLadiesMedicalSupply
+options:
+  bundleIdPrefix: com.comeauxladysmedicalsupply
+  deploymentTarget:
+    iOS: "17.0"
+targets:
+  ComeauxLadiesMedicalSupply:
+    type: application
+    platform: iOS
+    sources: [Sources]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.comeauxladysmedicalsupply.mobile
+        MARKETING_VERSION: 0.1.0
+        CURRENT_PROJECT_VERSION: 1
+        SWIFT_VERSION: 5.10

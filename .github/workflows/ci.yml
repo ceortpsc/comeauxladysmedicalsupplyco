@@ -1,0 +1,23 @@
+name: platform-ci
+on:
+  push:
+    branches: [main, develop, qa, staging, release, "feature/**", "chore/**"]
+  pull_request:
+    branches: [main, develop, qa, staging, release]
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm install
+      - run: npm run verify
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install xcodegen
+      - run: cd mobile/ios && xcodegen generate
+      - run: cd mobile/ios && xcodebuild -project ComeauxLadiesMedicalSupply.xcodeproj -scheme ComeauxLadiesMedicalSupply -sdk iphonesimulator -configuration Debug CODE_SIGNING_ALLOWED=NO build

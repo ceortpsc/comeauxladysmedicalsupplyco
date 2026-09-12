@@ -1,0 +1,12 @@
+{
+  "platform": "comeaux-ladys-medical-supply-platform",
+  "version": "0.1.0",
+  "artifacts": [
+    {"name":"platform-web","type":"nextjs-standalone","source":"apps/platform","immutable":true},
+    {"name":"platform-openapi","type":"openapi","source":"contracts/comeaux-platform.openapi.yaml","immutable":true},
+    {"name":"ios-app","type":"ios-xcarchive","source":"mobile/ios","immutable":true},
+    {"name":"database-schema","type":"sql","source":"db/001_platform.sql","immutable":true},
+    {"name":"brand-logo","type":"svg","source":"apps/platform/public/brand/logo.svg","immutable":true}
+  ],
+  "releaseGates": ["typecheck","next-build","api-contract-present","database-schema-reviewed","staging-health","manual-production-approval"]
+}

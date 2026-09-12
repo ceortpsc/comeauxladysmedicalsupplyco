@@ -1,0 +1,3 @@
+export const dynamic = "force-dynamic";
+
+export default function DashboardPage(){const now=new Date().toISOString();return <section className="section"><div className="eyebrow">Dynamic operations</div><h1>Platform dashboard</h1><div className="grid"><article className="card"><h3>Runtime</h3><p>Server-rendered operational surface.</p><code>{now}</code></article><article className="card"><h3>Release controls</h3><p>Develop → QA → staging → release → production.</p></article><article className="card"><h3>External systems</h3><p>Render, Stripe, Google services, API Hub, Artifact Registry and TULIP handoff are represented by explicit connection states.</p></article></div></section>}
