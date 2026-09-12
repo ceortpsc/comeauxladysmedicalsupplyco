@@ -6,13 +6,14 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: { default: BRAND.name, template: `%s | ${BRAND.name}` },
   description: BRAND.description,
-  keywords: ["medical supplies", "nursing supplies", "CNA training", "medication aide", "Texas nurses", "healthcare LMS"],
+  keywords: ["medical supplies", "nursing supplies", "CNA training", "medication aide", "Texas nurses", "healthcare LMS", "business filing assistance"] ,
   robots: { index: true, follow: true }
 };
 
 const nav = [
   ["Store", "/store"],
   ["Academy", "/academy"],
+  ["Business Services", "/business-services/colorado/llc"],
   ["LMS", "/lms"],
   ["Dashboard", "/dashboard"]
 ] as const;
@@ -29,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <nav>{nav.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav>
         </header>
         <main>{children}</main>
-        <footer><strong>{BRAND.name}</strong><span>Medical supply commerce • healthcare education • clinic onboarding</span><small>© {new Date().getFullYear()} Comeaux Lady's Medical Supply Co. Educational and regulatory workflows require applicable approvals before conferment or state submission.</small></footer>
+        <footer><strong>{BRAND.name}</strong><span>Medical supply commerce • healthcare education • clinic onboarding • administrative business services</span><small>© {new Date().getFullYear()} Comeaux Lady's Medical Supply Co. Educational, regulatory, tax, and business-filing workflows require applicable approvals, customer attestations, and official government acceptance before they are represented as complete.</small></footer>
       </body>
     </html>
   );

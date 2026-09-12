@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  title: Comeaux Colorado Business Filings API
+  version: 0.1.0
+  description: Administrative preparation, validation, fee-relief review, and official Colorado SOS handoff. This API does not claim direct state submission.
+servers:
+  - url: https://comeaux-ladys-medical-supply-stg.onrender.com
+paths:
+  /api/business-filings/colorado/llc/validate:
+    post:
+      operationId: validateColoradoLLC
+      summary: Validate a Colorado LLC Articles of Organization draft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ColoradoLLCDraft'
+      responses:
+        '200': { description: Valid filing-preparation packet }
+        '422': { description: Validation issues }
+  /api/business-filings/colorado/llc/handoff:
+    post:
+      operationId: prepareColoradoLLCHandoff
+      summary: Create an integrity-tracked handoff to the official Colorado SOS filing portal
+      description: Returns official Colorado links and packet metadata. No government filing is transmitted by this operation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ColoradoLLCDraft'
+      responses:
+        '200': { description: Handoff packet ready }
+        '422': { description: Application not ready }
+components:
+  schemas:
+    Address:
+      type: object
+      required: [street1, city, state, postalCode, country]
+      properties:
+        street1: { type: string }
+        street2: { type: string }
+        city: { type: string }
+        state: { type: string }
+        postalCode: { type: string }
+        country: { type: string }
+    ColoradoLLCDraft:
+      type: object
+      required: [legalName, principalOffice, mailingSameAsPrincipal, registeredAgent, management, atLeastOneMemberConfirmed, organizer, emailNotifications, feeReliefRequested, stateFeeAcknowledged]
+      properties:
+        legalName: { type: string }
+        principalOffice: { $ref: '#/components/schemas/Address' }
+        mailingSameAsPrincipal: { type: boolean }
+        mailingAddress: { $ref: '#/components/schemas/Address' }
+        registeredAgent:
+          type: object
+          required: [type, name, street1, city, state, postalCode, consentConfirmed, verificationMethod]
+          properties:
+            type: { type: string, enum: [individual, entity] }
+            name: { type: string }
+            street1: { type: string }
+            street2: { type: string }
+            city: { type: string }
+            state: { type: string, const: CO }
+            postalCode: { type: string }
+            consentConfirmed: { type: boolean }
+            verificationMethod: { type: string, enum: [colorado_id, agent_passcode, entity_good_standing] }
+            entityGoodStandingConfirmed: { type: boolean }
+        management: { type: string, enum: [members, managers] }
+        atLeastOneMemberConfirmed: { type: boolean }
+        organizer:
+          type: object
+          required: [fullName, mailingStreet1, city, state, postalCode, country]
+          properties:
+            fullName: { type: string }
+            mailingStreet1: { type: string }
+            mailingStreet2: { type: string }
+            city: { type: string }
+            state: { type: string }
+            postalCode: { type: string }
+            country: { type: string }
+        delayedEffectiveDate: { type: string, format: date }
+        emailNotifications: { type: boolean }
+        feeReliefRequested: { type: boolean }
+        stateFeeAcknowledged: { type: boolean }
