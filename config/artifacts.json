@@ -1,12 +1,16 @@
 {
   "platform": "comeaux-ladys-medical-supply-platform",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "artifacts": [
     {"name":"platform-web","type":"nextjs-standalone","source":"apps/platform","immutable":true},
     {"name":"platform-openapi","type":"openapi","source":"contracts/comeaux-platform.openapi.yaml","immutable":true},
+    {"name":"internal-external-gateway-openapi","type":"openapi","source":"contracts/internal-external-gateway.openapi.yaml","immutable":true},
+    {"name":"internal-external-adapter-registry","type":"integration-registry","source":"config/internal-external-adapters.json","immutable":true},
+    {"name":"internal-external-gateway-code","type":"typescript-package","source":"packages/external-gateway","immutable":true},
     {"name":"ios-app","type":"ios-xcarchive","source":"mobile/ios","immutable":true},
     {"name":"database-schema","type":"sql","source":"db/001_platform.sql","immutable":true},
+    {"name":"production-control-schema","type":"sql","source":"db/002_production_control_plane.sql","immutable":true},
     {"name":"brand-logo","type":"svg","source":"apps/platform/public/brand/logo.svg","immutable":true}
   ],
-  "releaseGates": ["typecheck","next-build","api-contract-present","database-schema-reviewed","staging-health","manual-production-approval"]
+  "releaseGates": ["typecheck","next-build","api-contract-present","integration-registry-present","zero-cost-policy","database-schema-reviewed","runtime-self-test","staging-health","manual-production-approval"]
 }
