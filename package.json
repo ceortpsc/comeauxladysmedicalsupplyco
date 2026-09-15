@@ -9,6 +9,9 @@
     "build": "npm --workspace @comeaux/platform run build",
     "start": "npm --workspace @comeaux/platform run start",
     "typecheck": "npm --workspace @comeaux/platform run typecheck",
-    "verify": "npm run typecheck && npm run build"
+    "verify": "npm run typecheck && npm run build",
+    "maven:test": "mvn -B -ntp test",
+    "maven:verify": "mvn -B -ntp verify",
+    "verify:all": "npm run verify && npm run maven:verify"
   }
 }

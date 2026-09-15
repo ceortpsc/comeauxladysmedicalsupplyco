@@ -3,6 +3,7 @@ node_modules/
 out/
 dist/
 build/
+target/
 .env
 .env.*
 !.env.example
@@ -11,3 +12,7 @@ build/
 DerivedData/
 *.xcarchive
 coverage/
+.classpath
+.project
+.settings/
+.factorypath
