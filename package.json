@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "npm --workspace @comeaux/platform run dev",
     "build": "npm --workspace @comeaux/platform run build",
-    "start": "npm --workspace @comeaux/platform run start",
+    "start": "node scripts/render/start-and-verify.mjs",
+    "start:platform": "npm --workspace @comeaux/platform run start",
     "typecheck": "npm --workspace @comeaux/platform run typecheck",
     "verify": "npm run typecheck && npm run build",
     "maven:test": "mvn -B -ntp test",
