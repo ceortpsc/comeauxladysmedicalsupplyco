@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": {
+    "id": "comeaux-ladys-medical-supply-platform",
+    "legalName": "Comeaux Lady's Medical Supply Co.",
+    "tagline": "A Family Company — Built for Nurses, Trusted by Long-Term Care Facilities.",
+    "primaryRegion": "ohio",
+    "productionBranch": "main",
+    "stagingBranch": "staging"
+  },
+  "domains": [
+    "identity","catalog","commerce","billing","training","facilities","regulatory","consultation","assistant","publishing","notifications","business-filings","integrations","observability","artifacts"
+  ],
+  "roles": [
+    "anonymous","customer","student","instructor","facility_staff","facility_manager","catalog_manager","fulfillment","finance","compliance","support","admin","super_admin","service_worker","ai_assistant"
+  ],
+  "queues": {
+    "primary": "comeaux:jobs",
+    "results": "comeaux:job-results",
+    "deadLetter": "comeaux:jobs:dead-letter",
+    "artifacts": "comeaux:artifacts"
+  },
+  "jobs": [
+    "runtime.heartbeat","theme.generate","artifact.register","deployment.evidence.capture","audit.snapshot","notification.dispatch","invoice.render.request","lms.progress.recalculate","credential.revalidation.prepare","regulatory.packet.prepare","business_filing.packet.prepare","certificate.record.prepare","inventory.reorder.review","payment.reconcile"
+  ],
+  "workflows": [
+    "order-lifecycle","consultation-lifecycle","student-learning-cycle","facility-incident-response","plan-of-correction","business-formation","verified-professional-savings","release-promotion"
+  ],
+  "externalBoundaries": {
+    "HHSC_TULIP": "assisted-official-handoff-unless-authorized-write-interface-is-verified",
+    "Texas_BON": "verification-boundary-no-credential-issuance",
+    "Colorado_SOS": "assisted-official-handoff",
+    "Stripe": "provider-adapter-requires-live-key-and-signed-webhook-verification",
+    "GCP_API_Hub": "registration-scripts-not-provisioned",
+    "Artifact_Registry": "publication-scripts-not-provisioned"
+  },
+  "productionGates": [
+    "typecheck","optimized-build","API-contract-review","security-review","secret-scan","database-migration-review","runtime-self-test","health-check","error-log-review","artifact-registration","rollback-target","manual-production-approval"
+  ]
+}
