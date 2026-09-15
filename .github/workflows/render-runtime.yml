@@ -1,0 +1,42 @@
+name: render-runtime
+on:
+  workflow_dispatch:
+    inputs:
+      service_id:
+        description: Render service ID
+        required: true
+      base_url:
+        description: Public service URL
+        required: true
+      production:
+        description: Set true only after production approval
+        required: false
+        default: "false"
+
+jobs:
+  verify-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm install --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm run build
+      - name: Install Render CLI
+        run: curl -fsSL https://raw.githubusercontent.com/render-oss/cli/main/bin/install.sh | sh
+      - name: Deployment policy
+        env:
+          RENDER_SERVICE_ID: ${{ inputs.service_id }}
+          APP_ENV: ${{ inputs.production == 'true' && 'production' || 'staging' }}
+          ALLOW_PRODUCTION_DEPLOY: ${{ inputs.production == 'true' && 'YES' || 'NO' }}
+        run: npm run render:policy
+      - name: Deploy and wait
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: render deploys create "${{ inputs.service_id }}" --wait --confirm -o json
+      - name: Smoke verify
+        env:
+          BASE_URL: ${{ inputs.base_url }}
+        run: npm run runtime:verify

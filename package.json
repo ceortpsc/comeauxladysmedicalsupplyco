@@ -4,6 +4,9 @@
   "private": true,
   "workspaces": ["apps/*", "packages/*"],
   "engines": {"node": ">=24 <25"},
+  "dependencies": {
+    "redis": "^5.8.2"
+  },
   "scripts": {
     "dev": "npm --workspace @comeaux/platform run dev",
     "build": "npm --workspace @comeaux/platform run build",
@@ -12,6 +15,11 @@
     "verify": "npm run typecheck && npm run build",
     "maven:test": "mvn -B -ntp test",
     "maven:verify": "mvn -B -ntp verify",
-    "verify:all": "npm run verify && npm run maven:verify"
+    "verify:all": "npm run verify && npm run maven:verify",
+    "runtime:worker": "node scripts/render/background-worker.mjs",
+    "runtime:theme:refresh": "node scripts/render/theme-refresh.mjs",
+    "runtime:verify": "node scripts/render/verify-runtime.mjs",
+    "render:policy": "node scripts/render/deploy-policy.mjs",
+    "render:deploy": "bash scripts/render/deploy.sh"
   }
 }

@@ -1,0 +1,78 @@
+# Reference desired-state Blueprint for a full paid runtime.
+# Do not sync blindly over directly-created resources. Review costs and import/migrate deliberately.
+services:
+  - type: web
+    name: comeaux-platform-web
+    runtime: node
+    branch: feature/render-runtime
+    region: ohio
+    plan: starter
+    buildCommand: npm install --no-audit --no-fund && npm run typecheck && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_VERSION
+        value: 0.1.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: comeaux-platform-postgres
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: comeaux-jobs
+          property: connectionString
+      - key: TREND_SIGNALS
+        sync: false
+
+  - type: keyvalue
+    name: comeaux-jobs
+    region: ohio
+    plan: starter
+    maxmemoryPolicy: noeviction
+    ipAllowList: []
+
+  - type: worker
+    name: comeaux-runtime-worker
+    runtime: node
+    branch: feature/render-runtime
+    region: ohio
+    plan: starter
+    buildCommand: npm install --no-audit --no-fund
+    startCommand: npm run runtime:worker
+    maxShutdownDelaySeconds: 60
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: comeaux-platform-postgres
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: comeaux-jobs
+          property: connectionString
+
+  - type: cron
+    name: comeaux-theme-refresh
+    runtime: node
+    branch: feature/render-runtime
+    region: ohio
+    plan: starter
+    schedule: "0 * * * *"
+    buildCommand: npm install --no-audit --no-fund
+    startCommand: npm run runtime:theme:refresh
+    envVars:
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: comeaux-jobs
+          property: connectionString
+      - key: TREND_SIGNALS
+        sync: false
+
+databases:
+  - name: comeaux-platform-postgres
+    region: ohio
+    plan: basic-256mb
