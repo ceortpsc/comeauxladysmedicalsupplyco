@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "policy": {
+    "zeroCostOnly": true,
+    "defaultExternalWrite": false,
+    "requireHumanAttestationForGovernmentSubmission": true,
+    "prohibitCredentialFabrication": true,
+    "prohibitSubmissionSuccessWithoutEvidence": true,
+    "sensitiveData": "redact-before-persistence"
+  },
+  "adapters": [
+    {"id":"irs-ein","mode":"assisted_handoff","cost":"free_to_prepare_and_apply_directly_with_irs","directWrite":false,"lifecycle":["draft","validated","ready_for_handoff","externally_completed","evidence_recorded"]},
+    {"id":"colorado-sos-llc","mode":"assisted_handoff","cost":"external_state_fee_may_apply","directWrite":false,"lifecycle":["draft","validated","ready_for_handoff","externally_submitted","accepted_or_rejected"]},
+    {"id":"texas-sos-llc","mode":"assisted_handoff","cost":"external_state_fee_required_unless_officially_waived","directWrite":false,"lifecycle":["draft","validated","ready_for_handoff","externally_submitted","accepted_or_rejected"]},
+    {"id":"texas-hhsc-tulip","mode":"assisted_handoff","cost":"provider_or_program_specific","directWrite":false,"lifecycle":["draft","reviewed","ready_for_handoff","externally_submitted","official_result_recorded"]},
+    {"id":"texas-bon","mode":"resource_link","cost":"verification_resource","directWrite":false,"lifecycle":["requested","source_check_required","evidence_recorded","revalidation_due"]},
+    {"id":"stripe","mode":"configuration_only","cost":"transaction_fees_possible","directWrite":false,"lifecycle":["invoice_prepared","provider_connection_blocked_by_zero_cost_policy","reconciliation_record_only"]},
+    {"id":"uspto-trademark","mode":"assisted_handoff","cost":"external_filing_fee_required","directWrite":false,"lifecycle":["inventory","filing_packet_prepared","legal_review_recommended","external_submission","official_result_recorded"]},
+    {"id":"email-client-handoff","mode":"resource_link","cost":"no_platform_charge","directWrite":false,"lifecycle":["draft","user_review","client_handoff","delivery_unverified"]},
+    {"id":"render-runtime","mode":"verified_connector_boundary","cost":"free_resources_only","directWrite":false,"lifecycle":["planned","configured","deployed","verified_or_blocked"]}
+  ]
+}
