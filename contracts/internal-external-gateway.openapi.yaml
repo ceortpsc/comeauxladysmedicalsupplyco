@@ -1,0 +1,92 @@
+openapi: 3.1.0
+info:
+  title: Comeaux Internal-to-External Gateway API
+  version: 0.1.0
+  description: >-
+    Policy-governed preparation and handoff boundary between internal Comeaux
+    workflows and external agencies/providers. Direct external writes are denied
+    by default. The zero-cost policy blocks actions that can incur external fees.
+servers:
+  - url: https://comeaux-runtime-canary.onrender.com
+paths:
+  /api/integrations:
+    get:
+      operationId: listExternalAdapters
+      summary: List safe public adapter metadata
+      responses:
+        '200':
+          description: Adapter registry
+  /api/integrations/prepare:
+    post:
+      operationId: prepareExternalEnvelope
+      summary: Validate, redact, hash, and prepare an external transmittal envelope
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrepareRequest'
+      responses:
+        '200':
+          description: Prepared envelope
+        '400':
+          description: Invalid request
+        '422':
+          description: Blocked by validation, cost, or external-write policy
+  /api/integrations/handoff:
+    post:
+      operationId: prepareOfficialHandoff
+      summary: Prepare an official-system handoff without claiming external submission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HandoffRequest'
+      responses:
+        '200':
+          description: Handoff target and evidence metadata
+        '422':
+          description: Handoff blocked
+  /api/integrations/evidence:
+    post:
+      operationId: recordExternalEvidence
+      summary: Record user-supplied external evidence as unverified evidence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [envelopeId, reportedStatus]
+              properties:
+                envelopeId: {type: string}
+                reportedStatus: {type: string}
+                externalReference: {type: [string, 'null']}
+                evidenceDescription: {type: [string, 'null']}
+      responses:
+        '200':
+          description: Evidence recorded without independent verification
+components:
+  schemas:
+    PrepareRequest:
+      type: object
+      required: [adapterId, action, payload]
+      properties:
+        adapterId: {type: string}
+        action:
+          type: string
+          enum: [prepare, handoff, submit, verify, reconcile, charge]
+        actorRole: {type: string}
+        payload:
+          type: object
+          additionalProperties: true
+    HandoffRequest:
+      type: object
+      required: [adapterId, payload]
+      properties:
+        adapterId: {type: string}
+        actorRole: {type: string}
+        payload:
+          type: object
+          additionalProperties: true
