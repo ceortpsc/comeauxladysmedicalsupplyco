@@ -11,7 +11,7 @@ export default function ContactClient(){
     const values=Object.fromEntries(form.entries());
     try{
       const response=await fetch("/api/contact",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({values})});
-      const body=await response.json(); setResult(body);
+      const body=await response.json(); setResult(JSON.stringify(body,null,2));
     }finally{setBusy(false)}
   }
   return <section className="section">
