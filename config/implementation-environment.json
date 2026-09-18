@@ -1,0 +1,43 @@
+{
+  "application": "comeaux-ladys-medical-supply-platform",
+  "environmentClass": "zero-cost-preview",
+  "version": "0.3.0",
+  "branch": "feature/full-seed-data-engine",
+  "zeroCostOnly": true,
+  "catalog": {
+    "products": 12,
+    "departments": 9,
+    "quantityPerProduct": 12,
+    "pricingTier": "luxury",
+    "mediaRequired": true
+  },
+  "learning": {
+    "programTracks": 4,
+    "regulatedApprovalInferred": false
+  },
+  "dataEntry": {
+    "registryDriven": true,
+    "forms": 7,
+    "aiAssist": true,
+    "xmlImportExport": true,
+    "prohibitedSecrets": true
+  },
+  "assistant": {
+    "persona": "Andreaa Chan'nel",
+    "humanIdentityClaim": false,
+    "aiDisclosureRequired": true,
+    "highRiskHumanEscalation": true
+  },
+  "externalActions": {
+    "directGovernmentWrite": false,
+    "paymentCharging": false,
+    "prepareValidateHandoffOnly": true
+  },
+  "infrastructure": {
+    "renderWebPlan": "free",
+    "postgres": "BLOCKED_COST_GATE",
+    "backgroundWorkers": "BLOCKED_COST_GATE",
+    "cron": "BLOCKED_COST_GATE",
+    "persistentKeyValue": "BLOCKED_COST_GATE"
+  }
+}
