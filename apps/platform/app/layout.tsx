@@ -7,17 +7,7 @@ export const metadata: Metadata = {
   title: { default: BRAND.name, template: `%s | ${BRAND.name}` },
   description: BRAND.description,
   applicationName: BRAND.name,
-  keywords: [
-    "medical supplies",
-    "nursing supplies",
-    "long-term care",
-    "LTC facilities",
-    "CNA training",
-    "medication aide",
-    "healthcare LMS",
-    "facility compliance",
-    "business filing assistance"
-  ],
+  keywords: ["medical supplies","nursing supplies","long-term care","LTC facilities","CNA training","medication aide","healthcare LMS","facility compliance","business filing assistance","AI support","data entry"],
   icons: {
     icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
     shortcut: "/favicon.ico",
@@ -27,18 +17,16 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true }
 };
 
-export const viewport: Viewport = {
-  themeColor: BRAND.palette.purpleDeep,
-  colorScheme: "light"
-};
+export const viewport: Viewport = { themeColor: BRAND.palette.purpleDeep, colorScheme: "light" };
 
 const nav = [
   ["Store", "/store"],
   ["Academy", "/academy"],
-  ["Business Services", "/business-services/colorado/llc"],
+  ["Andreaa AI", "/assistant"],
+  ["Data Entry", "/data-entry"],
   ["Integrations", "/integrations"],
-  ["Handbook", "/handbook/engineering"],
-  ["LMS", "/lms"],
+  ["Governance", "/governance"],
+  ["Contact", "/contact"],
   ["Dashboard", "/dashboard"]
 ] as const;
 
@@ -53,15 +41,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <img className="brandMark" src={BRAND.assets.monogram} width="56" height="56" alt="" />
             </span>
             <span className="brandText">
-              <strong>Comeaux Lady&apos;s</strong>
-              <small>Medical Supply Co.</small>
-              <em>{BRAND.compactTagline}</em>
+              <strong>Comeaux Lady&apos;s</strong><small>Medical Supply Co.</small><em>{BRAND.compactTagline}</em>
             </span>
           </Link>
           <nav aria-label="Primary navigation">
-            {nav.map(([label, href]) => (
-              <Link key={href} href={href} prefetch={false}>{label}</Link>
-            ))}
+            {nav.map(([label, href]) => <Link key={href} href={href} prefetch={false}>{label}</Link>)}
           </nav>
         </header>
         <main id="main-content">{children}</main>
@@ -71,7 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div><strong>{BRAND.name}</strong><span>{BRAND.tagline}</span></div>
           </div>
           <small>Medical supply commerce • healthcare education • long-term care facility support • governed administrative business services</small>
-          <small>Educational, regulatory, tax, payment, credential, and business-filing workflows require applicable approvals, customer attestations, licensed-professional review when appropriate, and official external acceptance before they are represented as complete.</small>
+          <small>Andreaa Chan&apos;nel is an AI assistant and can make mistakes. Educational, regulatory, tax, payment, credential, and business-filing workflows require applicable approvals, human review, and official external acceptance before they are represented as complete.</small>
           <small>© {new Date().getFullYear()} {BRAND.name}</small>
         </footer>
       </body>
