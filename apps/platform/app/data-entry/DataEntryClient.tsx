@@ -27,6 +27,6 @@ export default function DataEntryClient(){
         <div className="actions"><button className="button buttonPrimary" onClick={process}>Validate + AI assist</button></div></>:<p>Loading form registry…</p>}
       </div>
     </div>
-    {result&&<pre style={{marginTop:"1.5rem"}}>{JSON.stringify(result,null,2)}</pre>}
+    {result&&<pre style={{marginTop:"1.5rem"}}>{result}</pre>}
   </section>
 }
