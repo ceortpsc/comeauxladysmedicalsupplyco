@@ -1,0 +1,22 @@
+{
+  "provider": "supabase",
+  "projectRef": "axnufyhrwdfxqkxoqchr",
+  "projectUrl": "https://axnufyhrwdfxqkxoqchr.supabase.co",
+  "dashboardState": {
+    "status": "healthy",
+    "compute": "nano",
+    "githubRepositoryConnected": false,
+    "branchesPresent": false,
+    "migrationsPresent": false,
+    "backupsPresent": false
+  },
+  "connectionState": {
+    "projectRegisteredInRepo": true,
+    "publishableKeyConfigured": false,
+    "secretKeyConfigured": false,
+    "databaseMigrationsApplied": false,
+    "authVerified": false,
+    "storageVerified": false,
+    "realtimeVerified": false
+  }
+}
