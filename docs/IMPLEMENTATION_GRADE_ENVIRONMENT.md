@@ -15,7 +15,7 @@ This environment extends the existing Next.js/Node monorepo with:
 - governance / rules / handbook surfaces
 - XML import/export boundary
 - source-controlled product assets
-- $0-only Render preview deployment
+- cost-minimized production deployment
 
 ## Truth-state model
 
@@ -99,11 +99,11 @@ Routes:
 - `/contact`
 - `POST /api/contact`
 
-Current $0 environment behavior:
+Current production environment behavior:
 - validates and prepares a support packet
 - returns an internal case reference
 - does not falsely claim email/ticket delivery
-- outbound provider remains configuration-only until a free/authorized connector is available
+- outbound provider remains configuration-only until an authorized connector is available
 
 ## Governance
 
@@ -116,7 +116,7 @@ Mandatory operating rules:
 - truth-state discipline
 - human authority gates
 - sensitive-data restrictions
-- $0-only infrastructure
+- lowest-viable-cost infrastructure
 - current-source regulatory review
 - clinical scope boundaries
 - evidence before external-success claims
@@ -149,38 +149,32 @@ Contract-first rule:
 - verify runtime
 - only then promote
 
-## $0 infrastructure mandate
+## Cost-minimized infrastructure mandate
 
-Allowed:
-- Render free web services
-- free nonpersistent Key Value where available
-- GitHub source control / Actions subject to account availability
-- request-driven jobs
-- local/dev persistence
-- stateless APIs
-- source-controlled seed data
+Policy:
+- choose the lowest-cost plan that satisfies the required production capability
+- paid resources are authorized when required for durability, persistence, always-on execution, scheduled jobs, or fee-bearing external actions
+- never select a higher tier while a lower tier satisfies the same requirement
+- external government, registrar, payment, credential, and regulatory fees remain separate and must be represented accurately
+- billing-provider or payment-method failures are hard provisioning gates, not successful deployments
 
-Blocked or configuration-only:
-- paid Render Postgres
-- paid workers
-- paid cron/workflows
-- paid persistent Key Value
-- paid domains
-- paid third-party APIs
-- Stripe charge execution
-- government filing fees
-- paid regulatory/credential services
+Target minimums:
+- Postgres: smallest paid persistent plan with minimum storage
+- Key Value: smallest paid persistent plan with no-eviction queue policy
+- Cron: smallest paid plan, billed only for active execution where supported
+- Background worker: smallest paid always-on worker plan
+- Web: free only if acceptable for production availability; otherwise smallest always-on plan
 
-## Background work under $0 constraint
+## Background work under cost-minimized production
 
-Because paid Render workers/cron are blocked, background behavior must use:
+Paid workers and cron are authorized at the lowest viable tier. If billing or connector capability prevents provisioning, the application must fall back to request-driven execution without claiming durable background processing.
+
+Until paid resources are actually provisioned and connected, background behavior may use:
 - request-driven execution
 - startup verification
 - on-demand admin actions
 - GitHub Actions where available
-- ephemeral free Key Value only for non-durable caches/queues
-
-Durable production job processing remains blocked until a zero-cost durable option or explicit paid authorization exists.
+- ephemeral Key Value only for non-durable caches/queues
 
 ## Deployment gates
 
@@ -189,7 +183,7 @@ Required before any production promotion:
 2. optimized Next.js build
 3. route generation
 4. API contract presence
-5. no-cost policy check
+5. lowest-cost policy check
 6. runtime self-test
 7. error-log review
 8. artifact registry update
@@ -198,8 +192,8 @@ Required before any production promotion:
 
 ## Remaining blockers
 
-- no dedicated durable Comeaux Postgres
-- no paid durable worker/cron
+- dedicated durable Comeaux Postgres remains pending until Render billing is enabled
+- paid durable worker/cron remain pending until Render billing is enabled
 - no live Stripe charging
 - no direct government write API
 - no authoritative external credential/regulatory submission connector
