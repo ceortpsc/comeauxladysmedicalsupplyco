@@ -77,6 +77,50 @@ export const FORM_REGISTRY: FormDefinition[] = [
       {id:"description",label:"Description",kind:"textarea",required:true,sensitivity:"internal",description:"Customer-facing factual description.",aiAssist:"suggest",externalSubmissionAllowed:true},
       {id:"claimBoundary",label:"Claim boundary",kind:"textarea",required:true,sensitivity:"internal",description:"What the listing must not imply or overstate.",aiAssist:"suggest",externalSubmissionAllowed:true}
     ]
+  },
+  {
+    id:"learning-enrollment",version:"1.0.0",title:"Learning Program Enrollment",purpose:"Prepare learner enrollment information for one of the four seeded program tracks.",
+    disclaimer:"Enrollment does not represent HHSC approval, exam authorization, eligibility, credential issuance, or completion.",
+    fields:[
+      {id:"learnerName",label:"Learner name",kind:"text",required:true,sensitivity:"confidential",description:"Learner's legal or preferred program name as appropriate.",aiAssist:"normalize",externalSubmissionAllowed:true},
+      {id:"email",label:"Email",kind:"email",required:true,sensitivity:"confidential",description:"Learner contact email.",aiAssist:"normalize",externalSubmissionAllowed:true},
+      {id:"programCode",label:"Program track",kind:"select",required:true,sensitivity:"internal",description:"Seeded learning-program track.",options:["TX-MA-BASIC-140","TX-MA-RENEW-8","TX-CNA-FOUNDATIONS","CLINIC-ONBOARDING"],aiAssist:"none",externalSubmissionAllowed:true},
+      {id:"facilityName",label:"Facility / employer",kind:"text",required:false,sensitivity:"confidential",description:"Optional sponsoring facility or employer.",aiAssist:"normalize",externalSubmissionAllowed:true},
+      {id:"notes",label:"Enrollment notes",kind:"textarea",required:false,sensitivity:"confidential",description:"Non-sensitive enrollment context.",aiAssist:"classify",externalSubmissionAllowed:true,validation:{maxLength:2000}}
+    ]
+  },
+  {
+    id:"facility-consultation",version:"1.0.0",title:"LTC Facility Consultation Intake",purpose:"Prepare a facility-support request for survey readiness, education, corrective action, or governed regulatory support.",
+    disclaimer:"The intake does not itself satisfy a regulatory report, investigation, plan of correction, clinical decision, or legal requirement.",
+    fields:[
+      {id:"facilityName",label:"Facility name",kind:"text",required:true,sensitivity:"confidential",description:"Facility requesting support.",aiAssist:"normalize",externalSubmissionAllowed:true},
+      {id:"facilityType",label:"Facility type",kind:"select",required:true,sensitivity:"internal",description:"Provider/facility category.",options:["Nursing Facility","Assisted Living","Home and Community Support","Training Program","Other"],aiAssist:"none",externalSubmissionAllowed:true},
+      {id:"requestType",label:"Support request",kind:"select",required:true,sensitivity:"internal",description:"Primary consultation request.",options:["Survey readiness","Immediate jeopardy response support","Plan of correction support","In-service training","QAPI / monitoring","Wound-care compliance review","Policy review","Other"],aiAssist:"classify",externalSubmissionAllowed:true},
+      {id:"eventDate",label:"Relevant date",kind:"date",required:false,sensitivity:"confidential",description:"Relevant event or survey date if applicable.",aiAssist:"none",externalSubmissionAllowed:true},
+      {id:"summary",label:"Situation summary",kind:"textarea",required:true,sensitivity:"confidential",description:"High-level facts without resident identifiers or protected health information.",aiAssist:"classify",externalSubmissionAllowed:true,validation:{minLength:20,maxLength:5000}}
+    ]
+  },
+  {
+    id:"invoice-service",version:"1.0.0",title:"Invoice & Service Entry",purpose:"Prepare an itemized internal invoice/service record without processing a payment.",
+    disclaimer:"Invoice preparation does not equal payment, settlement, insurance acceptance, tax advice, or legal entitlement.",
+    fields:[
+      {id:"customerName",label:"Customer / facility",kind:"text",required:true,sensitivity:"confidential",description:"Customer or facility name.",aiAssist:"normalize",externalSubmissionAllowed:true},
+      {id:"serviceSku",label:"Service SKU",kind:"text",required:true,sensitivity:"internal",description:"Indexed internal service identifier.",aiAssist:"normalize",externalSubmissionAllowed:true},
+      {id:"description",label:"Service description",kind:"textarea",required:true,sensitivity:"internal",description:"Specific service or deliverable description.",aiAssist:"suggest",externalSubmissionAllowed:true},
+      {id:"quantity",label:"Quantity",kind:"number",required:true,sensitivity:"internal",description:"Units or service quantity.",aiAssist:"none",externalSubmissionAllowed:true,validation:{min:1}},
+      {id:"unitPriceCents",label:"Unit price",kind:"currency",required:true,sensitivity:"internal",description:"Unit price in cents.",aiAssist:"none",externalSubmissionAllowed:true,validation:{min:0}},
+      {id:"terms",label:"Terms / disclosure",kind:"textarea",required:true,sensitivity:"internal",description:"Applicable payment, refund, scope, and external-fee disclosures.",aiAssist:"suggest",externalSubmissionAllowed:true}
+    ]
+  },
+  {
+    id:"integration-handoff",version:"1.0.0",title:"External Handoff Preparation",purpose:"Prepare internal data for a governed external adapter without claiming submission or acceptance.",
+    disclaimer:"Prepared, handed off, submitted, accepted, verified, paid, and completed are distinct states.",
+    fields:[
+      {id:"adapterId",label:"Adapter",kind:"select",required:true,sensitivity:"internal",description:"Configured internal/external adapter.",options:["irs-ein","colorado-sos-llc","texas-sos-llc","texas-hhsc-tulip","texas-bon","stripe","uspto-trademark","email-client-handoff","render-runtime"],aiAssist:"none",externalSubmissionAllowed:true},
+      {id:"recordReference",label:"Internal record reference",kind:"text",required:true,sensitivity:"internal",description:"Internal case or record ID.",aiAssist:"normalize",externalSubmissionAllowed:true},
+      {id:"purpose",label:"Purpose",kind:"textarea",required:true,sensitivity:"internal",description:"Why the external handoff is being prepared.",aiAssist:"classify",externalSubmissionAllowed:true},
+      {id:"humanApprovalConfirmed",label:"Human approval confirmed",kind:"checkbox",required:true,sensitivity:"internal",description:"Records that an authorized human reviewed the prepared data before handoff.",aiAssist:"none",externalSubmissionAllowed:true}
+    ]
   }
 ];
 
