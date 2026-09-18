@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ENGINEERING_PRINCIPLES, engineeringPrincipleSummary } from "../../lib/engineering-principles";
+import { ENGINEERING_PRINCIPLES, engineeringPrincipleSummary } from "../../../lib/engineering-principles";
 
 export const metadata:Metadata={
   title:"Engineering Handbook",
