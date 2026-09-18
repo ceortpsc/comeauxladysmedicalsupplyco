@@ -26,6 +26,6 @@ export default function ContactClient(){
       <label className="formFull">Message<textarea name="message" required minLength={10} maxLength={4000}/></label>
       <div className="actions formFull"><button className="button buttonPrimary" disabled={busy}>{busy?"Validating…":"Prepare support request"}</button></div>
     </form>
-    {result&&<pre style={{marginTop:"1.5rem"}}>{JSON.stringify(result,null,2)}</pre>}
+    {result&&<pre style={{marginTop:"1.5rem"}}>{result}</pre>}
   </section>;
 }
