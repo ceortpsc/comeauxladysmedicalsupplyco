@@ -1,10 +1,10 @@
 openapi: 3.1.0
 info:
   title: Comeaux Lady's Medical Supply Platform API
-  version: 0.2.0
-  description: Contract for public bootstrap/catalog/health surfaces. Authenticated commerce, LMS and regulatory APIs are added behind explicit security schemes as implemented.
+  version: 0.3.0
+  description: Contract-first platform API for catalog, LMS bootstrap, governed AI support, data entry, contact intake, runtime evidence, and internal/external handoff surfaces.
 servers:
-  - url: https://comeaux-ladys-medical-supply-staging.onrender.com
+  - url: https://comeaux-internal-external-gateway.onrender.com
 paths:
   /api/health:
     get:
@@ -17,20 +17,94 @@ paths:
       operationId: getCatalog
       responses:
         '200':
-          description: Public catalog seed
+          description: Fully seeded public catalog with 12 products across 9 departments
   /api/lms/bootstrap:
     get:
       operationId: getLmsBootstrap
       responses:
         '200':
-          description: Public LMS/program metadata and feature gates
+          description: Four learning-program tracks and LMS feature gates
+  /api/assistant/chat:
+    post:
+      operationId: chatWithAndreaa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message:
+                  type: string
+                  maxLength: 4000
+      responses:
+        '200':
+          description: Governed Andreaa Chan'nel support response
+        '400':
+          description: Invalid request
+  /api/data-entry/forms:
+    get:
+      operationId: getDataEntryForms
+      responses:
+        '200':
+          description: Public data-entry field/form registry
+  /api/data-entry/process:
+    post:
+      operationId: processDataEntryForm
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [formId, values]
+              properties:
+                formId:
+                  type: string
+                values:
+                  type: object
+                  additionalProperties: true
+                includeAiAssist:
+                  type: boolean
+                  default: true
+      responses:
+        '200':
+          description: Validation and reviewable AI-assist output
+        '400':
+          description: Invalid or blocked data
+  /api/contact:
+    post:
+      operationId: prepareContactRequest
+      responses:
+        '200':
+          description: Validated contact packet; delivery only when configured provider confirms
+        '400':
+          description: Validation failure
   /api/platform/engineering-principles:
     get:
       operationId: getEngineeringPrinciples
-      summary: Read engineering governance registry
       responses:
         '200':
-          description: Machine-readable engineering principles, truth states, and mandates
+          description: Engineering governance registry
+  /api/integrations:
+    get:
+      operationId: getIntegrationRegistry
+      responses:
+        '200':
+          description: Internal/external adapter registry
+  /api/integrations/prepare:
+    post:
+      operationId: prepareIntegrationEnvelope
+      responses:
+        '200':
+          description: Prepared integration envelope
+  /api/integrations/handoff:
+    post:
+      operationId: prepareOfficialHandoff
+      responses:
+        '200':
+          description: Official handoff package; not equivalent to submission or acceptance
 components:
   securitySchemes:
     sessionCookie:
