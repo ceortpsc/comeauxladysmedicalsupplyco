@@ -149,3 +149,36 @@ export function processForm(formId:string,values:Record<string,unknown>,includeA
 export function publicFormRegistry(){
   return FORM_REGISTRY.map(form=>({...form,fields:form.fields.filter(field=>!PROHIBITED_AI_FIELDS.has(field.id.toLowerCase()))}));
 }
+
+
+function escapeXml(value:unknown){
+  return String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
+}
+
+function decodeXml(value:string){
+  return value.replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&amp;/g,"&");
+}
+
+export function exportFormXml(formId:string,values:Record<string,unknown>){
+  const result=processForm(formId,values,false);
+  if(!result.valid) throw new Error("Form must validate before XML export.");
+  const fields=result.fields.map(field=>`  <field id="${escapeXml(field.fieldId)}">${escapeXml(field.value)}</field>`).join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<comeaux-record formId="${escapeXml(formId)}" formVersion="${escapeXml(result.formVersion)}">\n${fields}\n</comeaux-record>\n`;
+}
+
+export function importFormXml(xml:string){
+  if(xml.length>100_000) throw new Error("XML payload exceeds 100 KB limit.");
+  if(/<!DOCTYPE|<!ENTITY|SYSTEM\s|PUBLIC\s/i.test(xml)) throw new Error("DTD/entity declarations are prohibited.");
+  const root=xml.match(/<comeaux-record\s+formId="([^"]+)"(?:\s+formVersion="([^"]+)")?\s*>[\s\S]*<\/comeaux-record>/i);
+  if(!root) throw new Error("Unsupported XML root. Expected comeaux-record.");
+  const formId=decodeXml(root[1]);
+  const values:Record<string,string>={};
+  const re=/<field\s+id="([^"]+)"\s*>([\s\S]*?)<\/field>/gi;
+  let match:RegExpExecArray|null;
+  while((match=re.exec(xml))!==null){
+    const id=decodeXml(match[1]);
+    if(PROHIBITED_AI_FIELDS.has(id.toLowerCase())) throw new Error(`Prohibited field in XML: ${id}`);
+    values[id]=decodeXml(match[2].trim());
+  }
+  return {formId,values,validation:processForm(formId,values,false)};
+}
