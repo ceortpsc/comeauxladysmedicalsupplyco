@@ -66,7 +66,7 @@ export function respondAsAndreaa(message:string):SupportReply{
     general:"I can help with products, training, facility support, business services, integrations, policies, and technical navigation. I will identify when a human or external authority must take over."
   };
   const highRisk=/diagnos|medication|dose|legal advice|lawsuit|tax advice|ssn|itin|password|card number|bank|identity document|emergency/i.test(cleaned);
-  const notices=[ANDREAA_CHAN_NEL.disclosure];
+  const notices:string[]=[ANDREAA_CHAN_NEL.disclosure];
   if(highRisk) notices.push("This request requires a stricter human/professional review boundary; do not place sensitive credentials or protected health information in chat.");
   return {
     persona:ANDREAA_CHAN_NEL,
