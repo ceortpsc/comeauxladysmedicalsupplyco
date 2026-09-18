@@ -45,3 +45,25 @@ Repository integration can be deployed before a Supabase project is connected. I
 ## Cost model
 
 Free is appropriate for development and low-activity launch testing. It can pause after inactivity and has lower quotas/no automatic paid-plan backup guarantees. Pro is the baseline production tier when always-on behavior and paid-plan operational guarantees are required.
+
+
+## Registered project
+
+- Project ref: `axnufyhrwdfxqkxoqchr`
+- Project URL: `https://axnufyhrwdfxqkxoqchr.supabase.co`
+- Dashboard-reported state at registration: Healthy / Nano
+- GitHub repository: not connected
+- Branches: none
+- Migrations: none
+- Backups: none
+
+The repository now carries the project identity in `config/supabase-project.json`. This does not authenticate API access. Publishable and server-secret keys must be configured separately.
+
+## Migration application order
+
+Apply:
+
+1. `supabase/migrations/20260918_000_platform.sql`
+2. `supabase/migrations/20260918_001_security.sql`
+
+Do not mark `databaseMigrationsApplied` true until the Supabase project confirms the migrations.
