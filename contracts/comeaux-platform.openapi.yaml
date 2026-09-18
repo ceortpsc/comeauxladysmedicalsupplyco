@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Comeaux Lady's Medical Supply Platform API
-  version: 0.1.0
+  version: 0.2.0
   description: Contract for public bootstrap/catalog/health surfaces. Authenticated commerce, LMS and regulatory APIs are added behind explicit security schemes as implemented.
 servers:
   - url: https://comeaux-ladys-medical-supply-staging.onrender.com
@@ -24,6 +24,13 @@ paths:
       responses:
         '200':
           description: Public LMS/program metadata and feature gates
+  /api/platform/engineering-principles:
+    get:
+      operationId: getEngineeringPrinciples
+      summary: Read engineering governance registry
+      responses:
+        '200':
+          description: Machine-readable engineering principles, truth states, and mandates
 components:
   securitySchemes:
     sessionCookie:

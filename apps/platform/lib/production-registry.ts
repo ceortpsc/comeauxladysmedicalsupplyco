@@ -68,6 +68,7 @@ export const ENDPOINTS = [
   {method:"GET",path:"/api/platform/jobs",domain:"operations",auth:"public",purpose:"Safe job registry metadata"},
   {method:"GET",path:"/api/platform/workflows",domain:"operations",auth:"public",purpose:"Workflow registry and approval gates"},
   {method:"GET",path:"/api/platform/artifacts",domain:"artifacts",auth:"public",purpose:"Artifact types and registration policy"},
+  {method:"GET",path:"/api/platform/engineering-principles",domain:"platform",auth:"public",purpose:"Machine-readable engineering governance registry"},
   {method:"GET",path:"/api/catalog",domain:"catalog",auth:"public",purpose:"Product catalog"},
   {method:"GET",path:"/api/lms/bootstrap",domain:"training",auth:"public-bootstrap",purpose:"LMS program metadata"},
   {method:"POST",path:"/api/business-filings/colorado/llc/validate",domain:"business-filings",auth:"public-intake",purpose:"Validate filing preparation data"},
@@ -113,6 +114,7 @@ export const ARTIFACTS = [
   {id:"ios-source",type:"mobile-source",source:"mobile/ios",registration:"release",immutable:true},
   {id:"brand-logo",type:"brand-svg",source:"apps/platform/public/brand/logo.svg",registration:"release",immutable:true},
   {id:"runtime-manifest",type:"operations",source:"docs/PRODUCTION_OPERATING_MODEL.md",registration:"release",immutable:true},
+  {id:"engineering-principles",type:"governance",source:"config/engineering-principles.json",registration:"release",immutable:true},
   {id:"regulatory-packet",type:"regulated-document",source:"generated",registration:"per-packet",immutable:true},
   {id:"invoice-pdf",type:"financial-document",source:"generated",registration:"per-invoice",immutable:true},
   {id:"course-publication",type:"learning-publication",source:"generated",registration:"per-version",immutable:true}
