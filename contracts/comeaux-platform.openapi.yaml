@@ -73,6 +73,14 @@ paths:
           description: Validation and reviewable AI-assist output
         '400':
           description: Invalid or blocked data
+  /api/data-entry/xml:
+    post:
+      operationId: convertDataEntryXml
+      responses:
+        '200':
+          description: Governed flat-schema Comeaux XML import/export
+        '400':
+          description: Unsupported or unsafe XML
   /api/contact:
     post:
       operationId: prepareContactRequest
