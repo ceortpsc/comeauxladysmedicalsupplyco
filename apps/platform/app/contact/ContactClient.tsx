@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 
 export default function ContactClient(){
-  const [result,setResult]=useState<unknown>(null);
+  const [result,setResult]=useState<string|null>(null);
   const [busy,setBusy]=useState(false);
   async function submit(event:FormEvent<HTMLFormElement>){
     event.preventDefault(); setBusy(true); setResult(null);
