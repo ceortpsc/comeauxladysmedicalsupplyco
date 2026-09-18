@@ -14,7 +14,7 @@ export default function DataEntryClient(){
   const form=useMemo(()=>forms.find(item=>item.id===formId),[forms,formId]);
   async function process(){
     const response=await fetch("/api/data-entry/process",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({formId,values,includeAiAssist:true})});
-    setResult(await response.json());
+    setResult(JSON.stringify(await response.json(),null,2));
   }
   return <section className="section">
     <div className="eyebrow">Data Entry Engine</div><h1>Registry-driven forms with AI assist</h1>
