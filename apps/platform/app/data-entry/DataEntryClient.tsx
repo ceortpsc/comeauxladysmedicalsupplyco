@@ -9,7 +9,7 @@ export default function DataEntryClient(){
   const [forms,setForms]=useState<FormDef[]>([]);
   const [formId,setFormId]=useState("");
   const [values,setValues]=useState<Record<string,unknown>>({});
-  const [result,setResult]=useState<unknown>(null);
+  const [result,setResult]=useState<string|null>(null);
   useEffect(()=>{fetch("/api/data-entry/forms").then(r=>r.json()).then(body=>{setForms(body.forms||[]);setFormId(body.forms?.[0]?.id||"")})},[]);
   const form=useMemo(()=>forms.find(item=>item.id===formId),[forms,formId]);
   async function process(){
